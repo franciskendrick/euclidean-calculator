@@ -1,10 +1,10 @@
 import math
 
-def solve_number_theory(num1, num2):
-    # Ensure a >= b for standard presentation
+def solve_number_theory(num1: int, num2: int) -> None:
+    """Generates explicit step-by-step Euclidean algorithm division and backward substitution."""
     a, b = max(abs(num1), abs(num2)), min(abs(num1), abs(num2))
     
-    # 1. Track Euclidean Algorithm steps: (a, b, quotient, remainder)
+    # 1. Track Euclidean Algorithm steps
     steps = []
     temp_a, temp_b = a, b
     while temp_b != 0:
@@ -17,12 +17,11 @@ def solve_number_theory(num1, num2):
     if len(steps) == 1 and steps[0][3] == 0:
         gcd_val = b
     else:
-        gcd_val = steps[-2][3]  # Last non-zero remainder
+        gcd_val = steps[-2][3]
 
-    # Formula for LCM
     lcm_val = (a * b) // gcd_val
 
-    # Verification using math module (as requested)
+    # Standard verification check
     assert gcd_val == math.gcd(a, b), "GCD calculation mismatch!"
     assert lcm_val == math.lcm(a, b), "LCM calculation mismatch!"
 
@@ -34,19 +33,13 @@ def solve_number_theory(num1, num2):
 
     # 3. Print Linear Combination Solution
     print("Linear Combination Solution:")
-    
     nz_steps = [s for s in steps if s[3] != 0]
 
     if not nz_steps:
-        # Base Case: b divides a directly
-        x_final, y_final = 0, 1
         print(f"{gcd_val} = {a}(0) + {b}(1)")
         print(f"\nTherefore:\n{gcd_val} = {a}(0) + {b}(1)\n")
     else:
-        # General Case: Dynamic Backward Substitution
         last_step = nz_steps[-1]
-        
-        # Terms tracked as [coefficient, base_number]
         terms = [[1, last_step[0]], [-last_step[2], last_step[1]]]
         
         def format_terms(t_list):
@@ -82,18 +75,14 @@ def solve_number_theory(num1, num2):
                 parts.append(part)
             return " ".join(parts)
 
-        # Line 1: Express last non-zero remainder
         print(f"{gcd_val} = {format_terms(terms)}")
 
-        # Step back through remainders iteratively
         for i in range(len(nz_steps) - 2, -1, -1):
             sub_step = nz_steps[i]
             sub_val, sub_a, sub_b, sub_q = sub_step[3], sub_step[0], sub_step[1], sub_step[2]
 
-            # Line 2: Substitute remainder expression
             print(f"{gcd_val} = {format_sub(terms, sub_val, sub_a, sub_q, sub_b)}")
 
-            # Expand terms
             expanded_terms = []
             for c, v in terms:
                 if v == sub_val:
@@ -102,20 +91,15 @@ def solve_number_theory(num1, num2):
                 else:
                     expanded_terms.append([c, v])
             
-            # Line 3: Show expanded product
             print(f"{gcd_val} = {format_terms(expanded_terms)}")
 
-            # Combine like terms
             combined_dict = {}
             for c, v in expanded_terms:
                 combined_dict[v] = combined_dict.get(v, 0) + c
             
             terms = [[c, v] for v, c in combined_dict.items() if c != 0]
-            
-            # Line 4: Combined simplified line
             print(f"{gcd_val} = {format_terms(terms)}")
 
-        # Extract final Bézout coefficients for a and b
         x_final = sum(c for c, v in terms if v == a)
         y_final = sum(c for c, v in terms if v == b)
 
@@ -123,21 +107,25 @@ def solve_number_theory(num1, num2):
 
     print(f"The LCM is: {lcm_val}")
 
-
-if __name__ == "__main__":
-    user_input = input("Input your Numbers: ")
-    numbers = [int(num.strip()) for num in user_input.split()]
+def run_omni(numbers: list[int]) -> None:
+    """Executes step-by-step derivation for 2 numbers or falls back to multi-number math."""
+    if len(numbers) < 2:
+        print("Error: Please provide at least two numbers.")
+        return
 
     if len(numbers) == 2:
         solve_number_theory(numbers[0], numbers[1])
-
-    elif len(numbers) > 2:
-        # Standard multi-number evaluation using built-in math module
+    else:
         gcd_val = math.gcd(*numbers)
         lcm_val = math.lcm(*numbers)
-        
         print(f"\nThe GCD is: {gcd_val}")
         print(f"The LCM is: {lcm_val}")
-        
-    else:
-        print("Enter at least two numbers.")
+        print("\n[Note: Full step-by-step derivation is formatted for exactly 2 numbers.]")
+
+if __name__ == "__main__":
+    user_input = input("Input your Numbers: ")
+    try:
+        nums = [int(n.strip()) for n in user_input.split()]
+        run_omni(nums)
+    except ValueError:
+        print("Error: Invalid input. Please enter space-separated integers.")
