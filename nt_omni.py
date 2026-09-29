@@ -1,5 +1,6 @@
 import math
 
+
 def solve_number_theory(num1: int, num2: int) -> None:
     """Generates explicit step-by-step Euclidean algorithm division and backward substitution."""
     a, b = max(abs(num1), abs(num2)), min(abs(num1), abs(num2))
@@ -107,6 +108,7 @@ def solve_number_theory(num1: int, num2: int) -> None:
 
     print(f"The LCM is: {lcm_val}")
 
+
 def run_omni(numbers: list[int]) -> None:
     """Executes step-by-step derivation for 2 numbers or falls back to multi-number math."""
     if len(numbers) < 2:
@@ -121,6 +123,7 @@ def run_omni(numbers: list[int]) -> None:
         print(f"\nThe GCD is: {gcd_val}")
         print(f"The LCM is: {lcm_val}")
         print("\n[Note: Full step-by-step derivation is formatted for exactly 2 numbers.]")
+
 
 if __name__ == "__main__":
     user_input = input("Input your Numbers: ")

@@ -1,5 +1,6 @@
 import math
 
+
 def linear_combination_gcd(a: int, b: int) -> tuple[int, int, int]:
     """
     Recursive Extended Euclidean Algorithm.
@@ -12,6 +13,7 @@ def linear_combination_gcd(a: int, b: int) -> tuple[int, int, int]:
     x = y1
     y = x1 - (a // b) * y1
     return gcd_val, x, y
+
 
 def run_combi(numbers: list[int]) -> None:
     """Calculates GCD, LCM, and prints the Bézout coefficient linear combination."""
@@ -31,7 +33,7 @@ def run_combi(numbers: list[int]) -> None:
 
         print(f"\nThe GCD is: {gcd_val}")
         print(f"The LCM is: {lcm_val}")
-        print("Linear Combination:")
+        print("\nLinear Combination:")
         print(f"({a}, {b}) = {a}({x}) + {b}({y})")
         
     else:
@@ -40,6 +42,7 @@ def run_combi(numbers: list[int]) -> None:
         print(f"\nThe GCD is: {gcd_val}")
         print(f"The LCM is: {lcm_val}")
         print("\n[Note: Linear combination is formatted for exactly 2 numbers.]")
+
 
 if __name__ == "__main__":
     user_input = input("Input your Numbers: ")

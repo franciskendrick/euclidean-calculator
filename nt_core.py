@@ -1,5 +1,6 @@
 import math
 
+
 def run_core(numbers: list[int]) -> None:
     """Computes GCD and LCM directly using Python's standard math library."""
     if len(numbers) < 2:
@@ -11,6 +12,7 @@ def run_core(numbers: list[int]) -> None:
 
     print(f"\nThe GCD is: {gcd_val}")
     print(f"The LCM is: {lcm_val}")
+
 
 if __name__ == "__main__":
     user_input = input("Input your Numbers: ")

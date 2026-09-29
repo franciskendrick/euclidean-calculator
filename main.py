@@ -22,7 +22,7 @@ def get_user_numbers() -> list[int]:
 def main():
     while True:
         print("\n==========================================")
-        print("    NUMBER THEORY ASSESSMENT ENGINE       ")
+        print("          EUCLIDEAN CALCULATOR            ")
         print("==========================================")
         print("Select Model Version:")
         print("  [1] NT-Core  (Fast built-in GCD & LCM)")
@@ -45,7 +45,7 @@ def main():
             numbers = get_user_numbers()
             run_omni(numbers)
         elif choice == "4":
-            print("\nExiting engine. Good luck with your assessment!")
+            print("\nExiting calculator. Good luck with your assessment!")
             sys.exit(0)
         else:
             print("Invalid option. Please enter a number between 1 and 4.")
